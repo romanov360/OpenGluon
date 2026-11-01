@@ -22,15 +22,15 @@ gap for every compact simple group reducing the continuum gap to one cube*, not 
   - **existence**: a continuum limit satisfying the Osterwalder–Schrader axioms. This is essentially the Clay problem
     itself.
 
-**Glossary of the pieces of the cube estimate.** The 4Y-M notes (`strong-coupling/forest/D_STATUS.md`) split the cube
-estimate into eight pieces, D1–D8. Only these labels are used here:
+**The open steps of the cube estimate.** Several steps are proved, among them the quadratic (Gaussian) version at
+every scale, one composition step, decay inside one calm fibre, and the rarity of large fields. Four steps are open:
 
-| label | plain name | what it asks |
-|---|---|---|
-| D4 | **mass off the chart on non-calm fibres** | control the field configurations that have no nearby small-field configuration |
-| D5 | **from local decay to the cube coefficient** | turn the proved decay of correlations inside one fibre into a bound on the cube's response to a boundary change |
-| D7 | **large fields are harmless** | show that rare regions of large field do not spoil the bound |
-| D8 | **composition across scales** | combine the cube conditions at all scales into one statement (renormalisation group) |
+| step | what it asks |
+|---|---|
+| **the cube coefficient** | turn the proved decay of correlations inside one fibre into a bound on the cube's response to a boundary change |
+| **non-calm fibres** | control the field configurations that have no nearby small-field configuration |
+| **harmless large fields** | show that rare regions of large field do not spoil the bound |
+| **composition across scales** | combine the cube conditions at all scales into one statement (renormalisation group) |
 
 **Other terms.**
 - **Fibre.** The set of field configurations inside the cube with the given block averages and boundary.
@@ -46,7 +46,7 @@ estimate into eight pieces, D1–D8. Only these labels are used here:
 | file | content | status |
 |---|---|---|
 | `SURVEY.md` | literature (Bałaban/Dimock, W₁ Dobrushin, Bassalygo–Dobrushin, CCHS, Shen–Zhu–Zhu, Chatterjee, LGT in Lean, 2025–26), with what each means for the four open pieces in the glossary above | survey |
-| `d5-calm/D5_CALM.md` | the step "from local decay to the cube coefficient" (D5) for calm boundary data: type-(a) exterior links proved with explicit constant C_* ≤ 7.4·10¹², uniform in β and n; type-(b) links reduced to one one-block large-field remainder; conditional D_c(n, α) for n ≳ 2.3·10¹⁵/α; the non-uniform off-chart term isolated as Conjecture L ("large fields are harmless", D7, in covariance form) | proved / reduced / conjectured, as marked in its §6 |
-| `d5-calm/checks/d5_geometry.py` | enumeration of the block-tree geometry (link types, private links, counts), the lattice sum S(α), the constants | `python3 yang-mills/d5-calm/checks/d5_geometry.py` |
+| `cube-coefficient/CALM_DATA.md` | the cube-coefficient step for calm boundary data: type-(a) exterior links proved with explicit constant C_* ≤ 7.4·10¹², uniform in β and n; type-(b) links reduced to one one-block large-field remainder; the constrained cube condition, conditionally, for cube side n ≳ 2.3·10¹⁵/α; the non-uniform off-chart term isolated as Conjecture L (harmlessness of large fields, in covariance form) | proved / reduced / conjectured, as marked in its §6 |
+| `cube-coefficient/checks/geometry_checks.py` | enumeration of the block-tree geometry (link types, private links, counts), the lattice sum S(α), the constants | `python3 yang-mills/cube-coefficient/checks/geometry_checks.py` |
 
-Nothing here proves the cube estimate or existence. The off-chart term of D5 is not uniform along the weak-coupling tuning.
+Nothing here proves the cube estimate or existence. The off-chart term of the cube-coefficient bound is not uniform along the weak-coupling tuning.

@@ -1,4 +1,4 @@
-"""Checks for D5_CALM.md (geometry, link classification, lattice sum, constants).
+"""Checks for CALM_DATA.md (geometry, link classification, lattice sum, constants).
 
 Pure Python, no dependencies beyond the standard library and mpmath (optional).
 Conventions follow forest/main.tex, Definition blockgauge and Sec. ssec:smallfibres:
@@ -12,11 +12,11 @@ Lattice: periodic of side Lside (large enough that the cube does not wrap).
 import itertools, math
 from fractions import Fraction
 
-D = 4
+DIM = 4
 
 def is_tree(x, mu):
     o = [c % 2 for c in x]
-    return o[mu] == 0 and all(o[nu] == 0 for nu in range(mu + 1, D))
+    return o[mu] == 0 and all(o[nu] == 0 for nu in range(mu + 1, DIM))
 
 def add(x, mu, s=1, L=None):
     y = list(x); y[mu] += s
@@ -26,7 +26,7 @@ def add(x, mu, s=1, L=None):
 def plaquettes_of(link, L):
     x, mu = link
     out = []
-    for nu in range(D):
+    for nu in range(DIM):
         if nu == mu: continue
         for s in (+1, -1):
             # plaquette in plane (mu,nu) with link (x,mu) as one side
@@ -38,7 +38,7 @@ def plaquettes_of(link, L):
 def midpoint_dist(a, b, L):
     (x, mu), (z, nu) = a, b
     m = 0.0
-    for i in range(D):
+    for i in range(DIM):
         pa = x[i] + (0.5 if i == mu else 0); pb = z[i] + (0.5 if i == nu else 0)
         d = abs(pa - pb) % L; d = min(d, L - d)
         m = max(m, d)
@@ -47,23 +47,23 @@ def midpoint_dist(a, b, L):
 def run(n=4, Lside=10):
     L = Lside
     nb = n // 2
-    W = [y for y in itertools.product(range(nb), repeat=D)]
+    W = [y for y in itertools.product(range(nb), repeat=DIM)]
     Wset = set(W)
     def block_of(x): return tuple(c // 2 for c in x)
     AW = set()
     for y in W:
-        for o in itertools.product((0, 1), repeat=D):
-            x = tuple(2 * y[i] + o[i] for i in range(D))
-            for mu in range(D):
+        for o in itertools.product((0, 1), repeat=DIM):
+            x = tuple(2 * y[i] + o[i] for i in range(DIM))
+            for mu in range(DIM):
                 if not is_tree(x, mu): AW.add((x, mu))
     assert len(AW) == 49 * len(W), len(AW)
     # links entering each average (variables only)
     enters = {}
     for y in W:
-        for mu in range(D):
+        for mu in range(DIM):
             S = set()
-            for o in itertools.product((0, 1), repeat=D):
-                x = tuple(2 * y[i] + o[i] for i in range(D))
+            for o in itertools.product((0, 1), repeat=DIM):
+                x = tuple(2 * y[i] + o[i] for i in range(DIM))
                 for l in [(x, mu), (add(x, mu, 1, L), mu)]:
                     if not is_tree(*l): S.add(l)
             enters[(y, mu)] = S
@@ -101,12 +101,12 @@ def run(n=4, Lside=10):
         assert nu == mu
         x = add(z, mu, -1, L)
         assert block_of(x) == y and x[mu] % 2 == 1, (j, ks)
-        assert tuple((y[i] + (1 if i == mu else 0)) for i in range(D)) not in Wset
+        assert tuple((y[i] + (1 if i == mu else 0)) for i in range(DIM)) not in Wset
     # (3) private links of V_{y,mu}: (x,mu), x in B(y), o_mu = 1 -> enter only V_{y,mu}
     for (y, mu), S in enters.items():
-        for o in itertools.product((0, 1), repeat=D):
+        for o in itertools.product((0, 1), repeat=DIM):
             if o[mu] != 1: continue
-            x = tuple(2 * y[i] + o[i] for i in range(D))
+            x = tuple(2 * y[i] + o[i] for i in range(DIM))
             others = [k for k, T in enters.items() if (x, mu) in T and k != (y, mu)]
             assert not others, ((x, mu), others)
     # (4) counts per class (residue mod 2, direction)
@@ -133,14 +133,14 @@ def S_numeric(alpha, Rmax_factor=40):
     best = 0.0
     # positions of j's midpoint relative to the four midpoint lattices: offsets 0 or 1/2 per coordinate
     jmu = 0
-    for mu in range(D):  # lattice of midpoints of links in direction mu: Z^4 + e_mu/2
+    for mu in range(DIM):  # lattice of midpoints of links in direction mu: Z^4 + e_mu/2
         pass
     def count_1d(off, R):  # #{k in Z : |k + off| <= R}
         return math.floor(R - off) + math.floor(R + off) + 1 if R >= abs(off) else 0
     total = 0.0
     # j in direction 0: offset of lattice mu relative to j's midpoint
-    for mu in range(D):
-        offs = [0.0] * D
+    for mu in range(DIM):
+        offs = [0.0] * DIM
         offs[0] -= 0.5  # j midpoint has +1/2 in coordinate 0
         offs[mu] += 0.5
         # distances take values in (1/2)Z; sum shells
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     assert sigma0 > 0.031
     Cb = 120 * pbar**2 * 2 * 48 * Ybound * math.exp(3 * 2.5e-4) * math.sqrt(float(Sb))
     print(f"C_b (leading, lambda-independent part) = 240 pbar^2 48 |Y|_2 e^(3 alpha) S^(1/2) = {Cb:.4e}")
-    # D_c threshold: K_c <= 4(n/2+1)^3 C <= alpha N_n = alpha (n/2)^4
+    # threshold of the constrained cube condition CC(n, alpha): K_c <= 4(n/2+1)^3 C <= alpha N_n = alpha (n/2)^4
     C = math.pi / 2 * max(Cstar, Cb)
     print(f"C = (pi/2) max(C_*, C_b) = {C:.4e}")
     for al in (0.5, 0.1):

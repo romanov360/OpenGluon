@@ -1,18 +1,22 @@
-# From local decay to the cube coefficient (piece D5), for calm boundary data
+# From local decay to the cube coefficient, for calm boundary data
 
 Status: November 2026. Working note, not refereed.
 
 This note is part of the Yang–Mills notes in this directory; `../README.md` explains
-the research programme they come from and defines the terms used (cube estimate, fibre, calm, chart, and the labels
-D4, D5, D7, D8). In brief: a lattice approach to the Yang–Mills mass gap
+the research programme they come from and defines the terms used (cube estimate, fibre, calm, chart). In brief: a
+lattice approach to the Yang–Mills mass gap
 ([romanov360/4Y-M](https://github.com/romanov360/4Y-M), branch `claude/yang-mills-mass-gap-wf5h8x`) reduces the gap in
-the continuum to one *cube estimate*, plus the existence of the continuum limit. The cube estimate splits into pieces:
-- **D4**: control of non-calm fibres;
-- **D5**: from local decay to the cube coefficient;
-- **D7**: large fields are harmless;
-- **D8**: composition across scales.
+the continuum to one *cube estimate*, plus the existence of the continuum limit. Four steps of the cube estimate are open:
+- **the cube coefficient**: from the proved local decay to the cube's response to a boundary change;
+- **non-calm fibres**: control of field configurations with no nearby small-field configuration;
+- **harmless large fields**: rare regions of large field do not spoil the bound;
+- **composition across scales**: combining the cube conditions at all scales (renormalisation group).
 
-This note works on D5 for calm (small-field) boundary data. It proves one of the two cases and reduces the other to an
+We write **CC(n, α)** for the paper's *constrained cube condition*: for every class c of exterior links, the summed
+cube coefficients K^c_c of a cube of side n with its block averages held fixed are at most α(n/2)⁴ (the number of
+translates containing a link). This is the paper's Definition `def:cube` with the block averages fixed.
+
+This note works on the cube-coefficient step for calm (small-field) boundary data. It proves one of the two cases and reduces the other to an
 open local estimate (§0).
 
 It builds on the paper `strong-coupling/forest/main.tex` of that repository. Labels such as `thm:chartdecay` are its
@@ -25,7 +29,7 @@ It builds on the paper `strong-coupling/forest/main.tex` of that repository. Lab
 
 ## 0. Summary
 
-D5 asks for the passage from the fibre decay of Theorem `chartdecay` to the constrained cube
+The cube-coefficient step asks for the passage from the fibre decay of Theorem `chartdecay` to the constrained cube
 coefficient, with a supremum over boundary conditions. This note does the calm-exterior case.
 
 **Proved:**
@@ -35,8 +39,8 @@ coefficient, with a supremum over boundary conditions. This note does the calm-e
   - **type (b)**: links that enter one cut-off average V♯_k. They share no plaquette with A_W, and they enter exactly
     one average, through a single path.
 
-  This is proved by hand below and checked by enumeration (`checks/d5_geometry.py`).
-- **Theorem 1 (D5 for type (a), calm data).** For every type-(a) link j and every calm boundary datum (E, c), the
+  This is proved by hand below and checked by enumeration (`checks/geometry_checks.py`).
+- **Theorem 1 (type-(a) links, calm data).** For every type-(a) link j and every calm boundary datum (E, c), the
   local cube coefficient obeys
 
   c_{V,j}(E, c) ≤ C_* + 120 r λ ε_W(K, λ) |A_W|,  C_* = 480√18 e^{α_G} p̄² S(α_G)^{1/2} ≤ 7.4·10¹².
@@ -52,24 +56,23 @@ coefficient, with a supremum over boundary conditions. This note does the calm-e
   - one remainder Ξ_j: the Lipschitz dependence, on E_j, of the constrained measure restricted to the large-path set of
     the single block of j's average.
 
-  Ξ_j is not bounded here. It is a one-block large-field statement, part of D7.
-- **Corollary 2 (D_c(n, α) on calm data, conditional).** It needs two inputs:
+  Ξ_j is not bounded here. It is a one-block large-field statement, part of the harmless-large-fields step.
+- **Corollary 2 (CC(n, α) on calm data, conditional).** It needs two inputs:
   - Ξ_j ≤ C_Ξ for every type-(b) link;
   - λ ε_W |A_W| ≤ 1.
 
-  If both hold, the constrained cube condition D_c(n, α) holds on calm data for n ≥ 2.3·10¹⁵/α + O(1) (α ≤ 1/2), with
+  If both hold, the constrained cube condition CC(n, α) holds on calm data for n ≥ 2.3·10¹⁵/α + O(1) (α ≤ 1/2), with
   C_Ξ entering the threshold linearly. This is the nonabelian counterpart, on calm data, of Theorem `constrainedcube`(iii)
   of the paper, which proves the same condition for the quadratic (Gaussian) approximation for n ≥ 2·10¹⁵/α. The two thresholds are of the same size.
 
 **What this does not do:**
 - **The off-chart term is not uniform along the tuning.** It is λ ε_W |A_W|, with ε_W ≈ (C/K³)^{45|W|} e^{−3λK²/4}.
   It is small only when λK² ≫ |W| log(…), that is, for β_W ≳ 10³⁹|W|. On cubes of fixed physical size,
-  |W| ∼ a⁻⁴ while β ∼ log(1/a), so the bound fails there. This is exactly D4 and D7 (control of non-calm fibres, and harmlessness of large
-  fields): by Proposition `calmrare` of the paper, non-calm windows are the typical case on such cubes. §5 states the local estimate that would remove the factor |A_W|.
-- **Non-calm data are excluded.** Fibres with no calm field and exteriors with no calm completion belong to D4.
+  |W| ∼ a⁻⁴ while β ∼ log(1/a), so the bound fails there. This is exactly the non-calm-fibres and harmless-large-fields steps: by Proposition `calmrare` of the paper, non-calm windows are the typical case on such cubes. §5 states the local estimate that would remove the factor |A_W|.
+- **Non-calm data are excluded.** Fibres with no calm field and exteriors with no calm completion belong to the non-calm-fibres step.
 
-So D5 is closed for type-(a) links on calm data. For type-(b) links it is reduced to one local large-field remainder.
-The remaining non-uniformity is moved entirely into a *localised* off-chart estimate, which is the interface with D7.
+So the cube-coefficient step is closed for type-(a) links on calm data. For type-(b) links it is reduced to one local large-field remainder.
+The remaining non-uniformity is moved entirely into a *localised* off-chart estimate, which is the interface with the harmless-large-fields step.
 
 ## 1. Setting and definitions
 
@@ -106,7 +109,7 @@ every t, then this function is C-Lipschitz, because its Dini derivatives are bou
 
 W₁(π_{E,c}, π_{E′,c}) ≤ C d_geo(E_j, E′_j) ≤ (π/2) C δ(E_j, E′_j)
 
-whenever the geodesic from E_j to E′_j stays in the calm set. The constrained cube coefficient of D_c, restricted to
+whenever the geodesic from E_j to E′_j stays in the calm set. The constrained cube coefficient of CC(n, α), restricted to
 calm pairs, is therefore at most (π/2) sup c_{V,j}.
 
 ## 2. Lemma 1: the two types of exterior links
@@ -136,7 +139,7 @@ calm pairs, is therefore at most (π/2) sup c_{V,j}.
   direction μ, of blocks y′ with B(y′) ∋ x or B(y′ + e_μ) ∋ x. The second needs x ∈ B(y′ + e_μ) = B(y), so y′ = y − e_μ,
   and there it would be in S^μ_y, which consists of links with o_μ = 0. Hence only V♯_{y,μ}. ∎
 
-Checked by enumeration for n = 4 and n = 6 (`checks/d5_geometry.py`): all type-(b) links found share no plaquette with
+Checked by enumeration for n = 4 and n = 6 (`checks/geometry_checks.py`): all type-(b) links found share no plaquette with
 A_W. The same script checks the following:
 - every type-(a) link shares exactly one plaquette with each of its A_W-neighbours;
 - it has at most 5 such neighbours (we use the trivial bound 18 = 6 plaquettes × 3 links);
@@ -287,7 +290,7 @@ C_b = 240 p̄² S^{1/2} e^{3α_G} (48|Y|₂ + 12κ′C′_G) + 240 p̄² S^{1/2}
   - On {m_y > ρ_G} the constraint V♯_k = P_{2y} does not depend on j. So only the cut-off shell ρ_G/8 ≤ m_y ≤ ρ_G and
     the motion of its boundary contribute.
 - **Conjecture B.** |Ξ_j(F)| ≤ C (1 + λ) π_0(m_y ≥ ρ_G/8) for 1-Lipschitz F.
-  This is a one-block large-field statement, part of D7. It is plausible because everything moves at speed O(1) and
+  This is a one-block large-field statement, part of the harmless-large-fields step. It is plausible because everything moves at speed O(1) and
   the action enters with λ. But the cut-off shell has kinks (χ is piecewise linear, and m_y is a maximum), and a proof
   would need either a smooth cut-off with the `privatesubmersion` bound or a coarea argument across the kinks.
 
@@ -299,31 +302,31 @@ C_b = 240 p̄² S^{1/2} e^{3α_G} (48|Y|₂ + 12κ′C′_G) + 240 p̄² S^{1/2}
 - λ ε_W |A_W| ≤ 1.
 
 Then K^c_c ≤ 4(n/2 + 1)³ (π/2)(max(C_*, C_b) + C_Ξ + O(1)), where the O(1) includes 120r and the small terms. So
-D_c(n, α) holds on calm data for
+CC(n, α) holds on calm data for
 
 (n/2)⁴ α ≥ 4(n/2 + 1)³ · 1.44·10¹⁴(1 + C_Ξ/C_b), that is, n ≥ 2.3·10¹⁵(1 + C_Ξ/C_b)/α up to O(1),
 
-for α ≤ 1/2 (`checks/d5_geometry.py`: n ≥ 2.302·10¹⁵ at α = 1/2 and 1.151·10¹⁶ at α = 1/10 when C_Ξ = 0).
+for α ≤ 1/2 (`checks/geometry_checks.py`: n ≥ 2.302·10¹⁵ at α = 1/2 and 1.151·10¹⁶ at α = 1/10 when C_Ξ = 0).
 
 **The non-uniform term, precisely.** In Theorems 1 and 2, the only quantity that grows with the cube is the off-chart
 term (5/4) ε_W osc F osc G. It is crude in two ways:
 - osc F ∼ |A_W| charges the whole cube;
 - ε_W is the probability that *some* plaquette in the cube is large.
 
-What would make D5 uniform along the tuning is a localised version:
+What would make the cube-coefficient bound uniform along the tuning is a localised version:
 
 **Conjecture L (local off-chart covariance).** For calm (E, c), a 1-Lipschitz F and G a smooth function of links within
 distance 1 of j with per-link gradient ≤ 1,
 
 |Cov_{π}(F, G) − Cov_μ(F, G)| ≤ C Σ_x e^{−α d(x,j)} π(some plaquette at x is not calm).
 
-Suppose large plaquettes are rare site by site under every exterior. This is piece D6 of the 4Y-M split, "large fields
-are rare": Theorem `defects` proves it on the torus, and extending it to arbitrary exteriors is item 3 of 4Y-M
-`strong-coupling/forest/ROADMAP.md` §7. Then the right-hand side is O(q(β_W) S(α)), uniform in |W|. Conjecture L is
-the same statement as "large fields are harmless" (D7) in covariance form. This is where the annealed Dobrushin comparison (item 2 of the same list) and the
-transport of the island bound to chart coordinates (item 4) would enter:
-- **Islands.** Inside an island of bad plaquettes the single-link W₁ coefficients are bounded uniformly in the field
-  (4Y-M `strong-coupling/forest/D_STATUS.md` §3).
+Suppose large plaquettes are rare site by site under every exterior. Theorem `defects` of the paper proves this rarity
+on the torus; extending it to arbitrary exteriors is open. Then the right-hand side is O(q(β_W) S(α)), uniform in |W|.
+Conjecture L is the statement "large fields are harmless" in covariance form. Two further open ingredients would
+enter here, an annealed Dobrushin comparison and the transport of the island bound to chart coordinates:
+- **Islands.** Inside an island of bad plaquettes the single-link W₁ coefficients are bounded uniformly in the field:
+  each entry is at most β_W/4 and each row at most 4.5β_W, so an island of n sites amplifies influence by at most
+  (4.5β_W)^{4n}.
 - **Leaving an island.** The chart decay of this note controls the influence once it leaves the island.
 - **The missing step.** The two have to be glued in one metric, and the section S of the chart (row sums ≤ 14, range 1)
   is the natural change of metric.
@@ -331,8 +334,8 @@ transport of the island bound to chart coordinates (item 4) would enter:
 **Averaging over v.** Lemma `mixture` holds with ε replaced by ∫W₁(κ(·|v), κ′(·|v)) ρ(dv). Its proof integrates the
 first term against ρ. So Corollary `compose` only needs the constrained coefficient *on average* over the averages v,
 under the law of the averages given the exterior. That law gives the non-calm fibres mass ≤ ε″_W (Corollary
-`calmexterior`). This does not remove the need for D4: the non-calm fibres still contribute W₁ ≤ diam, which is not
-proportional to δ. But it shows that only their mass, not a supremum over them, is needed if D4 is proved in a form
+`calmexterior`). This does not remove the need for the non-calm-fibres step: the non-calm fibres still contribute W₁ ≤ diam, which is not
+proportional to δ. But it shows that only their mass, not a supremum over them, is needed if that step is proved in a form
 proportional to δ.
 
 ## 6. Status table
@@ -344,6 +347,6 @@ proportional to δ.
 | Theorem 2, explicit λ-independent part C_b ≤ 9.2·10¹³ | proved |
 | Theorem 2, constants C′_G, C″_G | sketched |
 | Ξ_j (cut-off shell of one block) | open; Conjecture B |
-| Corollary 2, D_c(n, α) on calm data for n ≳ 2.3·10¹⁵/α | conditional on Conjecture B and λ ε_W |A_W| ≤ 1; therefore not uniform along the tuning |
-| Conjecture L (localised off-chart covariance) | open; it is D7 in covariance form |
+| Corollary 2, CC(n, α) on calm data for n ≳ 2.3·10¹⁵/α | conditional on Conjecture B and λ ε_W |A_W| ≤ 1; therefore not uniform along the tuning |
+| Conjecture L (localised off-chart covariance) | open; it is "large fields are harmless" in covariance form |
 | Numerical | only the geometry, the lattice sum and the constants are checked; no Monte Carlo was run |
