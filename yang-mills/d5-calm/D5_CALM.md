@@ -1,11 +1,31 @@
-# D5 on calm data: from fibre decay to the constrained cube coefficient
+# From local decay to the cube coefficient (piece D5), for calm boundary data
 
-Status: November 2026. Working note, not refereed. It builds on the forest paper `4Y-M/strong-coupling/forest/main.tex`
-(branch `claude/yang-mills-mass-gap-wf5h8x`); all labels such as `thm:chartdecay` refer to that file.
+Status: November 2026. Working note, not refereed.
+
+This note is part of the Yang–Mills notes in this directory; `../README.md` explains
+the research programme they come from and defines the terms used (cube estimate, fibre, calm, chart, and the labels
+D4, D5, D7, D8). In brief: a lattice approach to the Yang–Mills mass gap
+([romanov360/4Y-M](https://github.com/romanov360/4Y-M), branch `claude/yang-mills-mass-gap-wf5h8x`) reduces the gap in
+the continuum to one *cube estimate*, plus the existence of the continuum limit. The cube estimate splits into pieces:
+- **D4**: control of non-calm fibres;
+- **D5**: from local decay to the cube coefficient;
+- **D7**: large fields are harmless;
+- **D8**: composition across scales.
+
+This note works on D5 for calm (small-field) boundary data. It proves one of the two cases and reduces the other to an
+open local estimate (§0).
+
+It builds on the paper `strong-coupling/forest/main.tex` of that repository. Labels such as `thm:chartdecay` are its
+`\label` names. The results used most are:
+- **`fibrechart`**: a convex coordinate chart on the fibre around a calm field;
+- **`chartdecay` / `explicitdecay`**: on that chart, covariances decay exponentially, at the explicit rate 2.5·10⁻⁴ per
+  lattice unit and with amplitude ∝ 1/β;
+- **`calmfibres` / `calmexterior`**: the probability of leaving the chart is tiny on calm data;
+- **`privatesubmersion`**: each block average can be moved by its own eight "private" links.
 
 ## 0. Summary
 
-D5 (`D_STATUS.md` §2) asks for the passage from the fibre decay of Theorem `chartdecay` to the constrained cube
+D5 asks for the passage from the fibre decay of Theorem `chartdecay` to the constrained cube
 coefficient, with a supremum over boundary conditions. This note does the calm-exterior case.
 
 **Proved:**
@@ -39,14 +59,14 @@ coefficient, with a supremum over boundary conditions. This note does the calm-e
 
   If both hold, the constrained cube condition D_c(n, α) holds on calm data for n ≥ 2.3·10¹⁵/α + O(1) (α ≤ 1/2), with
   C_Ξ entering the threshold linearly. This is the nonabelian counterpart, on calm data, of Theorem `constrainedcube`(iii)
-  (Gaussian: n ≥ 2·10¹⁵/α). The two thresholds are of the same size.
+  of the paper, which proves the same condition for the quadratic (Gaussian) approximation for n ≥ 2·10¹⁵/α. The two thresholds are of the same size.
 
 **What this does not do:**
 - **The off-chart term is not uniform along the tuning.** It is λ ε_W |A_W|, with ε_W ≈ (C/K³)^{45|W|} e^{−3λK²/4}.
   It is small only when λK² ≫ |W| log(…), that is, for β_W ≳ 10³⁹|W|. On cubes of fixed physical size,
-  |W| ∼ a⁻⁴ while β ∼ log(1/a), so the bound fails there. This is exactly D4/D7 (Proposition `calmrare`: non-calm
-  windows are typical). §5 states the local estimate that would remove the factor |A_W|.
-- **Non-calm data are excluded.** Fibres with no calm field and exteriors with no calm completion are D4.
+  |W| ∼ a⁻⁴ while β ∼ log(1/a), so the bound fails there. This is exactly D4 and D7 (control of non-calm fibres, and harmlessness of large
+  fields): by Proposition `calmrare` of the paper, non-calm windows are the typical case on such cubes. §5 states the local estimate that would remove the factor |A_W|.
+- **Non-calm data are excluded.** Fibres with no calm field and exteriors with no calm completion belong to D4.
 
 So D5 is closed for type-(a) links on calm data. For type-(b) links it is reduced to one local large-field remainder.
 The remaining non-uniformity is moved entirely into a *localised* off-chart estimate, which is the interface with D7.
@@ -297,12 +317,13 @@ distance 1 of j with per-link gradient ≤ 1,
 
 |Cov_{π}(F, G) − Cov_μ(F, G)| ≤ C Σ_x e^{−α d(x,j)} π(some plaquette at x is not calm).
 
-With the per-site rarity of large plaquettes (D6, Theorem `defects`, extended to arbitrary exteriors: ROADMAP §7 item
-3), the right-hand side is O(q(β_W) S(α)), uniform in |W|. Conjecture L is the same statement as "large fields are
-harmless" (D7) in covariance form. This is where the annealed Dobrushin comparison (ROADMAP §7 item 2) and the
+Suppose large plaquettes are rare site by site under every exterior. This is piece D6 of the 4Y-M split, "large fields
+are rare": Theorem `defects` proves it on the torus, and extending it to arbitrary exteriors is item 3 of 4Y-M
+`strong-coupling/forest/ROADMAP.md` §7. Then the right-hand side is O(q(β_W) S(α)), uniform in |W|. Conjecture L is
+the same statement as "large fields are harmless" (D7) in covariance form. This is where the annealed Dobrushin comparison (item 2 of the same list) and the
 transport of the island bound to chart coordinates (item 4) would enter:
 - **Islands.** Inside an island of bad plaquettes the single-link W₁ coefficients are bounded uniformly in the field
-  (`D_STATUS.md` §3).
+  (4Y-M `strong-coupling/forest/D_STATUS.md` §3).
 - **Leaving an island.** The chart decay of this note controls the influence once it leaves the island.
 - **The missing step.** The two have to be glued in one metric, and the section S of the chart (row sums ≤ 14, range 1)
   is the natural change of metric.

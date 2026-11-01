@@ -1,10 +1,16 @@
-# Literature survey for the open pieces D4, D5, D7, D8 (November 2026)
+# Literature survey: tools for the open steps of a lattice Yang–Mills mass-gap programme (November 2026)
 
-The pieces are those of `4Y-M/strong-coupling/forest/D_STATUS.md`:
-- **D4**: mass off the chart on non-calm fibres;
-- **D5**: fibre decay ⇒ constrained cube coefficient;
+This note is part of the Yang–Mills notes in this directory; `README.md` explains
+the research programme they come from and defines the terms used (cube estimate, fibre, calm, chart, and the labels
+D4, D5, D7, D8). In brief: a lattice approach to the Yang–Mills mass gap
+([romanov360/4Y-M](https://github.com/romanov360/4Y-M), branch `claude/yang-mills-mass-gap-wf5h8x`) reduces the gap in
+the continuum to one *cube estimate*, plus the existence of the continuum limit. The cube estimate splits into pieces:
+- **D4**: control of non-calm fibres;
+- **D5**: from local decay to the cube coefficient;
 - **D7**: large fields are harmless;
-- **D8**: multiscale composition and the crossover.
+- **D8**: composition across scales.
+
+This survey asks which published or preprint work could help with D4, D5, D7 or D8.
 
 Each entry says what the work would mean for these four. "Checked" means I read the abstract or the listing; full texts
 were not read unless said. Items marked *(unverified)* were seen only in search summaries.
@@ -31,7 +37,7 @@ were not read unless said. Items marked *(unverified)* were seen only in search 
   polymer expansion.
   - This is the per-site suppression that Conjecture L of `d5-calm/D5_CALM.md` needs. It holds under every exterior,
     because it comes from the action in one cube.
-  - It is a better model for "local rarity under an arbitrary exterior" (ROADMAP §7 item 3) than the chessboard
+  - It is a better model for "local rarity under an arbitrary exterior" (item 3 of the 4Y-M plan, `strong-coupling/forest/ROADMAP.md` §7) than the chessboard
     estimate, which needs the torus.
 - **D5.** The small-field covariance bounds come from random-walk expansions of Green's functions with constraints,
   whose decay is exponential with scale-independent constants. This is the same mechanism as Theorem `chartdecay`
@@ -94,7 +100,7 @@ were not read unless said. Items marked *(unverified)* were seen only in search 
 - **D5.** The fibre-chart theorems use exactly this mechanism on the constrained fibre: Bakry–Émery/Brascamp–Lieb on a
   convex chart with λ large. The novelty in the forest paper is that the curvature is supplied by the constraint, so it
   holds at weak coupling on calm fibres. SZZ is the strong-coupling special case.
-- **D7.** Bakry–Émery fails at large fields: the Hessian has negative directions at U_j = −1 (OPEN.md). Their results
+- **D7.** Bakry–Émery fails at large fields: the Hessian has negative directions at U_j = −1 (4Y-M `strong-coupling/OPEN.md` §4). Their results
   say nothing about large fields.
 - **D4/D8.** No content.
 
@@ -112,7 +118,7 @@ were not read unless said. Items marked *(unverified)* were seen only in search 
 - **The supremum over boundary conditions.** It is exactly Chatterjee's notion. So (D), if proved, gives confinement
   for SU(N) by his theorem, at the same lattice scale.
 - **D7.** Adhikari–Cao is the closest existing proof of the large fields being *harmless* at weak coupling: for finite
-  groups the defects (vortices) are rare and are decoupled by a disagreement-percolation argument. `rare/RARE.md`
+  groups the defects (vortices) are rare and are decoupled by a disagreement-percolation argument. The 4Y-M note `strong-coupling/forest/rare/RARE.md`
   showed that disagreement percolation fails for our continuous group. Their reduction of correlations to vortex
   clusters is still the template for Conjecture L.
 - **D4/D5/D8.** No content.
@@ -121,7 +127,7 @@ were not read unless said. Items marked *(unverified)* were seen only in search 
 
 - Reservoir `@mrdouglasny/LGT`, github.com/mrdouglasny/lgt. U(n) Wilson lattice gauge theory on finite tori, with the
   Gibbs specification, DLR, Dobrushin verification and a strong-coupling mass gap with zero sorries (PR #2, May 2026).
-  The condition is total variation and needs very small β (β_W < 0.0104 for the relevant case, per `A4_LEAN.md`).
+  The condition is total variation and needs very small β (β_W < 0.0104 for the relevant case, per 4Y-M `strong-coupling/forest/A4_LEAN.md`).
   Built on Mathlib, `markov-semigroups` and `gaussian-field`.
 - **For us.** A4 only. A W₁ Dobrushin theorem on top of it is the critical path to formalising the 0.351/0.77 results.
   Nothing for D4–D8.
@@ -130,7 +136,7 @@ were not read unless said. Items marked *(unverified)* were seen only in search 
 
 - **arXiv:2509.19176**, *Correlation decay for U(1) lattice Higgs theory: the case of small mass*. A gap for an abelian
   Higgs model for every small Higgs mass, at β large depending on m. It is a weak-coupling result with a mass term,
-  i.e. the regime where the Gaussian benchmark of OPEN.md says the cube condition can hold. It is not pure Yang–Mills.
+  i.e. the regime where the Gaussian benchmark of 4Y-M `strong-coupling/OPEN.md` §4 (a massless Gaussian fails the cube condition; a mass rescues it) says the cube condition can hold. It is not pure Yang–Mills.
   *(authors unverified)*
 - **arXiv:2509.03513** (rev. Jan 2026), on charge conjugation and Elitzur's theorem in SU(N), d = 4. It argues for a gap
   but states that it does not prove it. Nothing usable.
